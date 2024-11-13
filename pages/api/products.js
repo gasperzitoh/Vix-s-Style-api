@@ -1,8 +1,16 @@
 // pages/api/products.js
 import { db } from "../../firebaseConfig";
 import { collection, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import NextCors from 'nextjs-cors';
 
 export default async function handler(req, res) {
+  // Habilitar CORS para permitir solicitudes desde Netlify
+  await NextCors(req, res, {
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: 'https://enchanting-longma-2c6ece.netlify.app', // Cambia esto por la URL de tu página en Netlify
+    optionsSuccessStatus: 200,
+  });
+
   const { id } = req.query;
 
   try {
